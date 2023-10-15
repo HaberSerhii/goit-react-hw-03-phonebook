@@ -1,6 +1,6 @@
-import { FilterInput, FilterSection } from "./Filter.styled";
+import { FilterClearButton, FilterInput, FilterSection } from "./Filter.styled";
 
-const Filter = ({ value, onChange }) => {
+const Filter = ({ value, onChange, onReset }) => {
   return (
     <FilterSection>
       <h2>Contacts</h2>
@@ -10,7 +10,8 @@ const Filter = ({ value, onChange }) => {
           name="filter"
           value={value}
           onChange={onChange}
-        />
+      />
+      <FilterClearButton onClick={onReset}>Clear</FilterClearButton>
     </FilterSection>
   );
 };

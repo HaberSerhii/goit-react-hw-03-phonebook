@@ -40,10 +40,6 @@ export class App extends Component {
     }
   }
 
-  componentWillUnmount() {
-   
-  }
-
   addContact = data => {
     const identicalContactName = this.state.contacts.some(
       ({ name }) => data.name === name
@@ -75,6 +71,13 @@ export class App extends Component {
     this.setState({ filter: e.currentTarget.value.trim() });
   };
 
+  clearFilter = () => {
+    this.setState({
+      filter: '',
+    })
+
+  }
+
   getVisibleContacts = () => {
     const { contacts, filter } = this.state;
     const normalizedFilter = filter.toLowerCase();
@@ -92,7 +95,7 @@ export class App extends Component {
       <Section>
         <h2>Phonebook</h2>
         <MyForm onSubmit={this.addContact} />
-        <Filter value={filter} onChange={this.changeFilter} />
+        <Filter value={filter} onChange={this.changeFilter} onReset={this.clearFilter} />
         {visibleContacts.length ? (
           <ContactList
             contacts={visibleContacts}
