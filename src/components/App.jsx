@@ -18,6 +18,32 @@ export class App extends Component {
     filter: '',
   };
 
+  componentDidUpdate(prevState) {
+    console.log('prevState', prevState);
+    if (
+      prevState.filter !== this.state.filter ||
+      prevState.contacts !== this.state.contacts
+    ) {
+      localStorage.setItem('phonebook-filter', JSON.stringify(this.state.filter));
+      localStorage.setItem('phonebook-contact', JSON.stringify(this.state.contacts));
+    }
+  }
+
+  componentDidMount() {
+    const savedContact = localStorage.getItem('phonebook-contact');
+    const savedFilter = localStorage.getItem('phonebook-filter')
+    if (savedContact !== null) {
+      this.setState({ contacts: JSON.parse(savedContact) });    
+    }
+    if (savedFilter !== null) {
+      this.setState({ filter: JSON.parse(savedFilter) });
+    }
+  }
+
+  componentWillUnmount() {
+   
+  }
+
   addContact = data => {
     const identicalContactName = this.state.contacts.some(
       ({ name }) => data.name === name
